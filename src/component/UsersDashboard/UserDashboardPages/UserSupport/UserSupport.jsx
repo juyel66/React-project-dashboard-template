@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BiDotsVerticalRounded } from 'react-icons/bi';
+
 import { FiEdit } from 'react-icons/fi';
 import { GoArrowLeft } from 'react-icons/go';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md'

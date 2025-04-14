@@ -20,6 +20,7 @@ import OrderManagement from './component/UsersDashboard/UserDashboardPages/Order
 import UserSupport from './component/UsersDashboard/UserDashboardPages/UserSupport/UserSupport.jsx';
 
 import BuyerDashboardPages from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/BuyerDashboardPages.jsx';
+import CreateOrder from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/CreateOrder.jsx';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path:"/dashboard/sellerDashboardPages",
         element:<BuyerDashboardPages></BuyerDashboardPages>
+      },
+      {
+        path:"/dashboard/createBuyerOrder",
+        element:<CreateOrder></CreateOrder>
       }
      
     ]
