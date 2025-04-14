@@ -10,7 +10,7 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import { GoArrowLeft, GoProjectRoadmap } from "react-icons/go";
 import { IoIosArrowForward, IoIosSearch } from "react-icons/io";
 import { IoCloudUploadOutline, IoTimeOutline } from "react-icons/io5";
-import { MdOutlineHeadsetMic } from "react-icons/md";
+import { MdMoreTime, MdOutlineHeadsetMic } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
 import { TbFileLike } from "react-icons/tb";
 import { VscEye } from "react-icons/vsc";
@@ -18,7 +18,8 @@ import { VscEye } from "react-icons/vsc";
 // import GiveAReviewRating from "./GiveAReviewRating";
 import { PiDotsThreeBold } from "react-icons/pi";
 import GiveAReviewRating from '../../UserDashboardPages/GiveAReviewRating'
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 
 function BuyerDashboardPages() {
@@ -452,58 +453,157 @@ function BuyerDashboardPages() {
                   {/* Dropdown Options for Actions */}
                   {openDropdownAction === order.order_id && (
                     <div className="absolute right-0 w-[195px] text-[16px] text-[#012939] bg-[#FAFDFF] border border-gray-200 rounded shadow-md z-20 p-2 space-y-2">
+                      {/* Common options for all statuses except cancelled */}
+                      {order.status !== "Cancelled" && order.status !== "Cancel request" && (
+                        <>
+                          {/* Admin Support Modal - common for all */}
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("support")}
+                          >
+                            <MdOutlineHeadsetMic />
+                            <p>Admin support</p>
+                          </div>
 
-
-                      {/* Cancel Request */}
-                      <div
-                        className="flex items-center gap-2 cursor-pointer"
-                        onClick={() => handleOpenModal("cancel")}
-                      >
-                        <RxCrossCircled />
-                        <p>Request to cancel</p>
-                      </div>
-
-                      {/* Review Modal if Delivered */}
-                      {order.status === "Delivered" && (
-                        <div
-                          className="flex items-center gap-2 cursor-pointer"
-                          onClick={() => handleOpenModal("review")}
-                        >
-                          <TbFileLike />
-                          <p>Give a review</p>
-                        </div>
+                          {/* Project Details - common for all */}
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("details")}
+                          >
+                            <GoProjectRoadmap />
+                            <p>View project details</p>
+                          </div>
+                        </>
                       )}
 
-                      {/* Deliver Order if not Delivered */}
-                      {order.status !== "Delivered" && (
-                        <div
-                          className="flex items-center gap-2 cursor-pointer"
-                          onClick={() => handleOpenModal("deliver")}
-                        >
-                          <CiDeliveryTruck />
-                          <p>Deliver the order</p>
-                        </div>
-                      )}
+                      {/* Status-specific options */}
+                      {order.status === "In Progress" || order.status === "Late" ? (
+                        <>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("cancel")}
+                          >
+                            <RxCrossCircled />
+                            <p>Request to cancel</p>
+                          </div>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("extend")}
+                          >
+                            <MdMoreTime />
+                            <p>Extend time</p>
+                          </div>
 
-                      {/* Admin Support Modal */}
-                      <div
-                        className="flex items-center gap-2 cursor-pointer"
-                        onClick={() => handleOpenModal("support")}
-                      >
-                        <MdOutlineHeadsetMic />
-                        <p>Admin support</p>
-                      </div>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("support")}
+                          >
+                            <MdOutlineHeadsetMic />
+                            <p>Admin support</p>
+                          </div>
 
-                      {/* Project Details */}
-                      <div
-                        className="flex items-center gap-2 cursor-pointer"
-                        onClick={() => handleOpenModal("details")}
-                      >
-                        <GoProjectRoadmap />
-                        <p>Project details</p>
-                      </div>
+                          {/* Project Details - common for all */}
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("details")}
+                          >
+                            <GoProjectRoadmap />
+                            <p>View project details</p>
+                          </div>
+                        </>
+                      ) : order.status === "Completed" ? (
+                        <>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("cancel")}
+                          >
+                            <RxCrossCircled />
+                            <p>Request to cancel</p>
+                          </div>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("extend")}
+                          >
+                           <MdMoreTime />
+                            <p>Extend time</p>
+                          </div>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("tip")}
+                          >
+                            <CiDeliveryTruck />
+                            <p>Give a tip</p>
+                          </div>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("review")}
+                          >
+                            <CiDeliveryTruck />
+                            <p>Give a review</p>
+                          </div>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("delivery")}
+                          >
+                           <CiDeliveryTruck />
+                            <p>View delivery</p>
+                          </div>
+                        </>
+                      ) : order.status === "Cancelled" ? (
+                        <>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("delete")}
+                          >
+                           <RiDeleteBin6Line />
+                            <p>Delete</p>
+                          </div>
+                        </>
+                      ) : order.status === "Delivered" ? (
+                        <>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("cancel")}
+                          >
+                            <RxCrossCircled />
+                            <p>Request to cancel</p>
+                          </div>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("extend")}
+                          >
+                            <MdMoreTime />
+                            <p>Extend time</p>
+                          </div>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("delivery")}
+                          >
+                           <CiDeliveryTruck />
+                            <p>View delivery</p>
+                          </div>
+                        </>
+                      ) : order.status === "Cancel request" ? (
+                        <>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("cancel")}
+                          >
+                            <RxCrossCircled />
+                            <p>Request to cancel</p>
+                          </div>
+                          <div
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => handleOpenModal("viewCancel")}
+                          >
+                            <GoProjectRoadmap />
+                            <p>View cancel request</p>
+                          </div>
+                        </>
+                      ) : null}
                     </div>
                   )}
+
                 </td>
               </tr>
             ))}
