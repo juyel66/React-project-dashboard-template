@@ -19,6 +19,8 @@ import AdminDashboardNotification from './component/AdminDashboard/AdminDashboar
 import OrderManagement from './component/UsersDashboard/UserDashboardPages/OrderManagement.jsx';
 import UserSupport from './component/UsersDashboard/UserDashboardPages/UserSupport/UserSupport.jsx';
 
+import BuyerDashboardPages from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/BuyerDashboardPages.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,7 +45,12 @@ const router = createBrowserRouter([
       {
         path:"/dashboard/userSupport",
         element:<UserSupport></UserSupport>
+      },
+      {
+        path:"/dashboard/sellerDashboardPages",
+        element:<BuyerDashboardPages></BuyerDashboardPages>
       }
+     
     ]
   },
 

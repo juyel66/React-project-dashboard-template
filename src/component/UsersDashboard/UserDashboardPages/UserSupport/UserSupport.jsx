@@ -93,7 +93,7 @@ function UserSupport() {
 
                                         <span>Purpose</span>
                                         <input type="text" className="border border-[#5C91B1] p-2 w-full rounded h-[54px] mt-3" />
-                                        <li className="hover:bg-gray-100 p-1 rounded cursor-pointer flex items-center absolute gap-6 bottom-3 left-[35%]">Withdrawal <MdOutlineKeyboardArrowRight /></li>
+                                        <li className="p-1 rounded cursor-pointer flex items-center absolute gap-6 bottom-3 left-[35%]">Withdrawal <MdOutlineKeyboardArrowRight /></li>
                                     </div>
 
                                     <div className="">

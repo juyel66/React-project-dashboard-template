@@ -17,9 +17,12 @@ import GiveAReviewRating from "./GiveAReviewRating";
 import { PiDotsThreeBold } from "react-icons/pi";
 
 
+
+
 const OrderManagement = () => {
     // Tabs handle
-    const [activeTab, setActiveTab] = useState("approved");
+    const [activeTab, setActiveTab] = useState("approved"); // default: seller
+  
 
     // Pagination handle
     const [currentPage, setCurrentPage] = useState(1);
@@ -45,6 +48,7 @@ const OrderManagement = () => {
         setActiveTab(tab);
         setCurrentPage(1);
     };
+    
 
     // Search bar change
     const handleSearchChange = (e) => {
@@ -193,7 +197,10 @@ const OrderManagement = () => {
                     <button
                         className={`px-6 py-2 rounded-full ${activeTab === "pending" ? "bg-[#1B97D8] text-white" : " text-[#012939]"}`}
                         onClick={() => handleTabChange("pending")}
+
                     >
+                       
+                        
                         Buyer
                     </button>
                 </div>
@@ -280,21 +287,7 @@ const OrderManagement = () => {
                                 {/* Amount */}
                                 <td className="px-4 py-3">${order.amount.toFixed(2)}</td>
 
-                                {/* Order Status with conditional color + optional eye icon */}
-                                {/* <td className={`px-4 py-2 text-sm font-semibold ${order.status === "In-Progress" ? "text-[#6055C2]"
-                                    : order.status === "Delivered" ? "text-[#268F39] underline cursor-pointer flex items-center"
-                                        : order.status === "Late" ? "text-[#E35A5A]"
-                                            : order.status === "Cancelled" ? "text-[#5D7595]"
-                                                : order.status === "Cancel request" ? "text-[#E35A5A] underline cursor-pointer flex items-center"
-                                                    : "text-[#088ED5] underline cursor-pointer flex items-center"
-                                    }`}>
-                                    {order.status}
-
-                                   
-                                    {(order.status === "Delivered" || order.status === "Complete" || order.status === "Cancel request") && (
-                                        <VscEye className="ml-1 text-[16px] cursor-pointer" />
-                                    )}
-                                </td> */}
+                           
 
 
 
