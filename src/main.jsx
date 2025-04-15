@@ -45,20 +45,24 @@ const router = createBrowserRouter([
         element: <OrderManagement />
       },
       {
-        path:"/dashboard/userSupport",
+        path:"userSupport",
         element:<UserSupport></UserSupport>
       },
       {
-        path:"/dashboard/sellerDashboardPages",
+        path:"sellerDashboardPages",
         element:<BuyerDashboardPages></BuyerDashboardPages>
       },
       {
-        path:"/dashboard/createBuyerOrder",
+        path:"createBuyerOrder",
         element:<CreateOrder></CreateOrder>
       },
+      // {
+      //   path:"createBuyerOrder/CreatedOrderedTable",
+      //   element:<CreatedOrderedTable></CreatedOrderedTable>
+      // }
       {
-        path:"/dashboard/createBuyerOrder/CreatedOrderedTable",
-        element:<CreatedOrderedTable></CreatedOrderedTable>
+        path:"buyer_order_create",
+        element:<CreatedOrderedTable/>
       }
      
     ]

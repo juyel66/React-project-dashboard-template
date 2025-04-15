@@ -13,9 +13,10 @@ import { TbFileLike } from "react-icons/tb";
 import { VscEye } from "react-icons/vsc";
 import { PiDotsThreeBold } from "react-icons/pi";
 import GiveAReviewRating from '../../UserDashboardPages/GiveAReviewRating';
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { HandCoins } from "lucide-react";
+import CreatedOrderedTable from "../BuyerDashboardPages/CreatedOrderedTable";
 
 function BuyerDashboardPages() {
   // State for orders
@@ -118,7 +119,7 @@ function BuyerDashboardPages() {
 
   // Store all text in a single variable
   const description = `Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the Lorem Ipsum is simply dum my text of the printing and type setting industry. Lorem standard dummy text ever since the. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`;
-
+const navigate = useNavigate()
   // Search bar change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -170,7 +171,7 @@ function BuyerDashboardPages() {
             <IoIosArrowForward className={`transition-transform ${isOpen ? "rotate-90" : ""}`} />
           </div>
 
-          {isOpen && (
+          {/* {isOpen && (
             <div className="absolute mt-2 w-40 text-[#012939] bg-white shadow-md rounded p-2 z-10 space-y-2">
               {["Created", "Cancel request", "Delivered", "Late", "Cancelled", "In-Progress", ""].map((status, index) => (
                 <p
@@ -182,8 +183,35 @@ function BuyerDashboardPages() {
                   <IoIosArrowForward />
                 </p>
               ))}
+
+
+
             </div>
-          )}
+          )} */}
+
+{isOpen && (
+  <div className="absolute mt-2 w-40 text-[#012939] bg-white shadow-md rounded p-2 z-10 space-y-2">
+    {["Created", "Cancel request", "Delivered", "Late", "Cancelled", "In-Progress", ""].map((status, index) => (
+      <p
+        key={index}
+        onClick={() => {
+          if (status === "Created") {
+            navigate('/dashboard/buyer_order_create'); // Redirect to the desired page
+          } else {
+            setStatusFilter(status); // Keep existing filter behavior for other statuses
+          }
+        }}
+        className="hover:bg-gray-100 p-1 rounded cursor-pointer flex items-center gap-1"
+      >
+        {status === "" ? "All Orders" : status}
+        <IoIosArrowForward />
+      </p>
+    ))}
+  </div>
+)}
+
+
+
         </div>
 
         {/* Search Field */}
