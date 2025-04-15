@@ -1,210 +1,201 @@
-import React, { useState } from 'react';
-import { MapPinIcon, ChevronLeftIcon } from '@heroicons/react/24/solid';
+import React, { useState } from "react";
+import { GoArrowLeft } from "react-icons/go";
+import { Link } from "react-router-dom";
 
-const CreateOrder = () => {
-  const [taskLocation, setTaskLocation] = useState('');
-  const [category, setCategory] = useState('');
-  const [title, setTitle] = useState('');
-  const [taskCategory, setTaskCategory] = useState('');
-  const [personsRequired, setPersonsRequired] = useState('');
-  const [description, setDescription] = useState('');
-  const [skills, setSkills] = useState('');
-  const [taskAddress, setTaskAddress] = useState('');
-  const [currency, setCurrency] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission here
-    // console.log({
-    //   title,
-    //   taskCategory,
-    //   personsRequired,
-    //   description,
-    //   skills,
-    //   taskAddress,
-    //   taskLocation,
-    //   category,
-    //   currency
-    // });
-  };
+function CreateOrder() {
+  const [hourlyRate, setHourlyRate] = useState(false);
+  const [fixedPrice, setFixedPrice] = useState(false);
+  const [category, setCategory] = useState("");
+  const [currency, setCurrency] = useState("USD");
 
   return (
-    <div className="  flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-lg w-full p-6">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center cursor-pointer">
-            <ChevronLeftIcon className="h-5 w-5 text-blue-500 mr-2" />
-            <span className="text-blue-500 font-medium">Back</span>
+    <div className="  p-6 ">
+      {/* Header */}
+      <div className=" mb-6">
+        <Link to="/dashboard">
+          <button className="flex items-center text-[#154153] cursor-pointer gap-1">
+            <GoArrowLeft />
+            <span>Back</span>
+
+
+          </button>
+        </Link>
+        <h1 className="text-[24px] font-bold text-center text-[#012939]">Create Order</h1>
+
+      </div>
+
+      {/* Form */}
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-[#154153] ">
+          <div className="md:col-span-1">
+            <label className="block text-[16px] mb-1">Give a title to your task</label>
+            <input
+              type="text"
+              placeholder="Enter text"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            />
           </div>
-          <h1 className="text-xl font-semibold text-gray-800">Create Order</h1>
-          <div className="flex items-center">
-            <span className="bg-purple-500 text-white rounded-full h-6 w-6 flex items-center justify-center mr-2">C</span>
-            <span className="bg-green-500 text-white rounded-full h-6 w-6 flex items-center justify-center">M</span>
+          <div className="md:col-span-1">
+            <label className="block text-[16px] mb-1">Name the task category</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white appearance-none"
+            >
+              <option value="" disabled>
+                Select type
+              </option>
+              <option value="cleaning">Cleaning</option>
+              <option value="delivery">Delivery</option>
+              <option value="repair">Repair</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div className="md:col-span-1">
+            <label className="block text-[16px] mb-1">Number of person required *</label>
+            <input
+              type="number"
+              placeholder="Enter number"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            />
           </div>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          {/* Form Fields */}
-          <div className="space-y-4">
-            {/* Row 1: Title, Category, Number of Persons */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="col-span-1">
-                <label className="block text-sm text-gray-600">Give a title to the task</label>
-                <input
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter here"
-                  required
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="block text-sm text-gray-600">Name the category</label>
-                <input
-                  type="text"
-                  value={taskCategory}
-                  onChange={(e) => setTaskCategory(e.target.value)}
-                  className="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter here"
-                  required
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="block text-sm text-gray-600">Number of persons required*</label>
-                <input
-                  type="number"
-                  value={personsRequired}
-                  onChange={(e) => setPersonsRequired(e.target.value)}
-                  className="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter here"
-                  required
-                  min="1"
-                />
-              </div>
-            </div>
+        <div>
+          <label className="block text-sm mb-1">Describe the task</label>
+          <textarea
+            placeholder="Enter text"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px] bg-white"
+          />
+        </div>
 
-            {/* Row 2: Description */}
-            <div>
-              <label className="block text-sm text-gray-600">Describe the task</label>
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter here"
-                rows="3"
-                required
-              ></textarea>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div className="flex items-center mb-1">
+              <label className="block text-sm">Skill Required (max 5)</label>
 
-            {/* Row 3: Skills and Task Address */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm text-gray-600">Skills required (and)</label>
-                <div className="flex items-center mt-1">
-                  <span className="bg-purple-500 text-white rounded-full h-6 w-6 flex items-center justify-center mr-2">C</span>
-                  <span className="bg-green-500 text-white rounded-full h-6 w-6 flex items-center justify-center mr-2">U</span>
-                  <input
-                    type="text"
-                    value={skills}
-                    onChange={(e) => setSkills(e.target.value)}
-                    className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter here"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm text-gray-600">Task address (because it is required)*</label>
-                <input
-                  type="text"
-                  value={taskAddress}
-                  onChange={(e) => setTaskAddress(e.target.value)}
-                  className="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter here"
-                  required
-                />
-              </div>
-            </div>
 
-            {/* Map Section */}
-            <div className="relative">
-              <div className="bg-gray-200 h-48 rounded-md flex items-center justify-center">
-                <MapPinIcon className="h-8 w-8 text-red-500" />
-                <span className="ml-2 text-gray-600">Cedar Ball Shopping</span>
-              </div>
-              <div className="absolute top-2 left-2 flex space-x-2">
-                <button type="button" className="bg-white px-3 py-1 rounded-md shadow text-gray-600">[Task location]</button>
-                <button type="button" className="bg-blue-100 px-3 py-1 rounded-md shadow text-blue-600">Auto locate</button>
-                <button type="button" className="bg-white px-3 py-1 rounded-md shadow text-gray-600">[Task location]</button>
-              </div>
             </div>
-
-            {/* Row 4: Task Location and Category */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm text-gray-600">Task location</label>
-                <input
-                  type="text"
-                  value={taskLocation}
-                  onChange={(e) => setTaskLocation(e.target.value)}
-                  className="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter here"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-gray-600">Category</label>
-                <div className="flex items-center mt-1 space-x-2">
-                  <button 
-                    type="button"
-                    className={`p-2 border rounded-md ${category === 'casual' ? 'bg-blue-100 text-blue-600' : ''}`}
-                    onClick={() => setCategory('casual')}
-                  >
-                    Casual task
-                  </button>
-                  <button 
-                    type="button"
-                    className={`p-2 border rounded-md ${category === 'fixed' ? 'bg-blue-100 text-blue-600' : ''}`}
-                    onClick={() => setCategory('fixed')}
-                  >
-                    Fixed price
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Row 5: Currency */}
-            <div>
-              <label className="block text-sm text-gray-600">Currency</label>
-              <select
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
-                className="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              >
-                <option value="">Select currency</option>
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-              </select>
-            </div>
+            <input
+              type="text"
+              placeholder="Enter text"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            />
           </div>
+          <div>
+            <label className="block text-sm mb-1">Task address/location (if required)</label>
+            <input
+              type="text"
+              placeholder="Enter text"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            />
+          </div>
+        </div>
 
-          {/* Submit Button */}
-          <div className="mt-6">
-            <button 
-              type="submit"
-              className=" bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
-            >
-              SUBMIT
+        {/* Map */}
+        <div className="border border-gray-200 rounded-md overflow-hidden">
+          <div className="flex items-center justify-between p-2 bg-white">
+            <div className="text-xs text-gray-500">(Task location)</div>
+            <div className="flex items-center border rounded-md overflow-hidden flex-1 mx-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search location"
+                className="p-1 px-2 w-full text-sm focus:outline-none"
+              />
+            </div>
+            <button className="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs">
+              Auto locate
             </button>
+            <div className="text-xs text-gray-500">(Task location)</div>
           </div>
-        </form>
+          <div className="relative h-[180px] bg-gray-100">
+            <div className="w-full h-full bg-gray-200">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div>
+            <label className="block text-sm mb-1">Task Duration</label>
+            <input
+              type="text"
+              placeholder="e.g. 2 days"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            />
+          </div>
+          <div className="md:col-span-1">
+            <label className="block text-sm mb-1">Offering</label>
+            <div className="flex items-center space-x-4 mt-2">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="hourly"
+                  checked={hourlyRate}
+                  onChange={(e) => setHourlyRate(e.target.checked)}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="hourly" className="text-sm">
+                  Hourly rate
+                </label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="fixed"
+                  checked={fixedPrice}
+                  onChange={(e) => setFixedPrice(e.target.checked)}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="fixed" className="text-sm">
+                  Fixed price
+                </label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Total cost amount</label>
+            <input
+              type="number"
+              placeholder="Enter amount"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Currency (USD)</label>
+            <select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white appearance-none"
+            >
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="pt-4">
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition-colors"
+          >
+            Submit
+          </button>
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default CreateOrder;

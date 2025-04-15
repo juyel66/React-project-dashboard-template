@@ -1,96 +1,25 @@
 
 
 
+
 import { useState } from "react";
-
-
-
 import { CiDeliveryTruck, CiDollar } from "react-icons/ci";
-
 import { GoArrowLeft, GoProjectRoadmap } from "react-icons/go";
 import { IoIosArrowForward, IoIosSearch } from "react-icons/io";
-import { IoCloudUploadOutline, IoTimeOutline } from "react-icons/io5";
-import { MdMoreTime, MdOutlineHeadsetMic } from "react-icons/md";
+import { IoCloudUploadOutline, IoSearchOutline, IoTimeOutline } from "react-icons/io5";
+import { MdMoreTime, MdOutlineCleanHands, MdOutlineHeadsetMic } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
 import { TbFileLike } from "react-icons/tb";
 import { VscEye } from "react-icons/vsc";
-
-// import GiveAReviewRating from "./GiveAReviewRating";
 import { PiDotsThreeBold } from "react-icons/pi";
-import GiveAReviewRating from '../../UserDashboardPages/GiveAReviewRating'
-import { Link, } from "react-router-dom";
+import GiveAReviewRating from '../../UserDashboardPages/GiveAReviewRating';
+import { Link } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
-
-
+import { HandCoins } from "lucide-react";
 
 function BuyerDashboardPages() {
-
-
-
-
-  // Tabs handle
-  // const [activeTab, setActiveTab] = useState("approved");
-  // default: seller
-
-
-  // Pagination handle
-  // const [currentPage, setCurrentPage] = useState(1);
-
-  // Search bar state
-  const [searchQuery, setSearchQuery] = useState("");
-
-  // Dropdown for filter open/close
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Filter by status
-  const [statusFilter, setStatusFilter] = useState("");
-
-  // Dropdown toggle for action (3 dot menu)
-  const [openDropdownAction, setOpenDropdownAction] = useState(null);
-
-  // Modal state
-  const [openModal, setOpenModal] = useState(false);
-  const [modalContent, setModalContent] = useState("");
-
-
-
-
-  // Search bar change
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  // Dropdown toggle for each order
-  const handleDropdownToggleAction = (orderId) => {
-    setOpenDropdownAction((prev) => (prev === orderId ? null : orderId));
-  };
-
-  // Open modal with specific content
-  const handleOpenModal = (content) => {
-    setModalContent(content);
-    setOpenModal(true);
-  };
-
-  // Close modal
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
-
-
-  // text see more button
-
-
-  const [showFullText, setShowFullText] = useState(false)
-
-  // Store all text in a single variable
-  const description = `Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the Lorem Ipsum is simply dum my text of the printing and type setting industry. Lorem standard dummy text ever since the. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`
-
-  // Truncate text dynamically
-  // const displayText = showFullText ? description : description.substring(0, 220)
-
-
-
-  const orderManagementData = [
+  // State for orders
+  const [orderManagementData, setOrderManagementData] = useState([
     {
       user_id: "U12345",
       username: "john_doe",
@@ -171,7 +100,54 @@ function BuyerDashboardPages() {
       status: "Cancel request",
       action: "⋯"
     }
-  ];
+  ]);
+
+  // Search bar state
+  const [searchQuery, setSearchQuery] = useState("");
+  // Dropdown for filter open/close
+  const [isOpen, setIsOpen] = useState(false);
+  // Filter by status
+  const [statusFilter, setStatusFilter] = useState("");
+  // Dropdown toggle for action (3 dot menu)
+  const [openDropdownAction, setOpenDropdownAction] = useState(null);
+  // Modal state
+  const [openModal, setOpenModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  // Text see more button
+  const [showFullText, setShowFullText] = useState(false);
+
+  // Store all text in a single variable
+  const description = `Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the Lorem Ipsum is simply dum my text of the printing and type setting industry. Lorem standard dummy text ever since the. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`;
+
+  // Search bar change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Dropdown toggle for each order
+  const handleDropdownToggleAction = (orderId) => {
+    setOpenDropdownAction((prev) => (prev === orderId ? null : orderId));
+  };
+
+  // Open modal with specific content
+  const handleOpenModal = (content) => {
+    setModalContent(content);
+    setOpenModal(true);
+  };
+
+  // Close modal
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  // Delete order function
+  const handleDeleteOrder = (orderId) => {
+    setOrderManagementData((prevOrders) =>
+      prevOrders.filter((order) => order.order_id !== orderId)
+    );
+    setOpenDropdownAction(null); // Close dropdown after deletion
+    setOpenModal(false); // Close modal if open
+  };
 
   // Filter by orderId & status
   const filteredOrders = orderManagementData.filter(
@@ -179,9 +155,6 @@ function BuyerDashboardPages() {
       order.order_id.toLowerCase().includes(searchQuery.toLowerCase()) &&
       (statusFilter === "" || order.status === statusFilter)
   );
-
-
-
 
   return (
     <div>
@@ -197,7 +170,6 @@ function BuyerDashboardPages() {
             <IoIosArrowForward className={`transition-transform ${isOpen ? "rotate-90" : ""}`} />
           </div>
 
-          {/* Dropdown options */}
           {isOpen && (
             <div className="absolute mt-2 w-40 text-[#012939] bg-white shadow-md rounded p-2 z-10 space-y-2">
               {["Created", "Cancel request", "Delivered", "Late", "Cancelled", "In-Progress", ""].map((status, index) => (
@@ -211,23 +183,14 @@ function BuyerDashboardPages() {
                 </p>
               ))}
             </div>
-
-
           )}
         </div>
 
         {/* Search Field */}
         <div className="flex gap-4">
-
-          {/* create a ticket button */}
-          {/* <button className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>  */}
-          {/* <Links to="/dashboard/createBuyerOrder">
+          <Link to="/dashboard/createBuyerOrder">
             <p className='text-[#38A3DC] border border-[#38A3DC] p-1 rounded cursor-pointer'>Create Order +</p>
-            </links> */}
-
-          {/* </button> */}
-          <Link to="/dashboard/createBuyerOrder"><p className='text-[#38A3DC] border border-[#38A3DC] p-1 rounded cursor-pointer'>Create Order +</p></Link>
-
+          </Link>
           <div className="flex items-center">
             <input
               className="bg-[#F6F8FA] rounded-l p-2"
@@ -249,9 +212,9 @@ function BuyerDashboardPages() {
           <thead className="text-[#012939]">
             <tr>
               <th className="px-4 py-3 text-left">Username</th>
-              <th className="px-4 py-3 text-left"> Delivery time</th>
+              <th className="px-4 py-3 text-left">Delivery time</th>
               <th className="px-4 py-3 text-left">Order ID</th>
-              <th className="px-4 py-3 text-left">Amount </th>
+              <th className="px-4 py-3 text-left">Amount</th>
               <th className="px-4 py-3 text-left">Status</th>
               <th className="px-4 py-3 text-left">Action</th>
             </tr>
@@ -260,30 +223,18 @@ function BuyerDashboardPages() {
           <tbody>
             {filteredOrders.map((order) => (
               <tr key={order.order_id} className="border-b border-[#C1DDEF] transition text-[#012939] text-[18px]">
-                {/* User info with profile image */}
                 <td className="px-4 py-3 flex items-center gap-2">
                   <img src={order.image} alt={order.username} className="w-[38px] h-[38px] rounded-full" />
                   <span>{order.username}</span>
                 </td>
-
-                {/* Delivery Time with icon */}
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
                     <IoTimeOutline />
                     {new Date(order.delivery_time).toLocaleString()}
                   </div>
                 </td>
-
-                {/* Order ID */}
                 <td className="px-4 py-3">{order.order_id}</td>
-
-                {/* Amount */}
                 <td className="px-4 py-3">${order.amount.toFixed(2)}</td>
-
-
-
-
-
                 <td
                   className={`px-4 py-2 text-sm font-semibold ${order.status === "In-Progress"
                     ? "text-[#6055C2]"
@@ -322,7 +273,6 @@ function BuyerDashboardPages() {
                 </td>
 
                 {/* Status Modals */}
-                {/* Modal for Delivered */}
                 <dialog
                   id="modal_delivered"
                   className="modal modal-middle ml-[40%] mt-[300px] rounded backdrop-blur"
@@ -334,7 +284,7 @@ function BuyerDashboardPages() {
                       </button>
                     </form>
                     <div>
-                      <h1 className="text-xl font-medium my-6 text-center ">Delivery request</h1>
+                      <h1 className="text-xl font-medium my-6 text-center">Delivery request</h1>
                       <div className="mb-6">
                         <h2 className="text-[16px] font-medium mb-2">Delivery message</h2>
                         <p className="text-sm text-slate-600">
@@ -372,11 +322,10 @@ function BuyerDashboardPages() {
                   </div>
                 </dialog>
 
-                {/* Modal for Complete */}
                 <dialog id="modal_complete" className="modal modal-middle ml-[40%] mt-[300px] rounded">
-                  <div className="modal-box bg-[#EFF2F6] text-[#154153] px-6 py-10 rounded-lg w-[470px] ">
-                    <form method="dialog" >
-                      <button className="btn btn-sm absolute  top-4 flex items-center gap-2">
+                  <div className="modal-box bg-[#EFF2F6] text-[#154153] px-6 py-10 rounded-lg w-[470px]">
+                    <form method="dialog">
+                      <button className="btn btn-sm absolute top-4 flex items-center gap-2">
                         <GoArrowLeft /> <span>Back</span>
                       </button>
                     </form>
@@ -412,11 +361,7 @@ function BuyerDashboardPages() {
                   </div>
                 </dialog>
 
-                {/* Modal for Cancel Request */}
                 <dialog id="modal_cancel_request" className="modal modal-middle ml-[40%] mt-[300px] rounded">
-
-
-
                   <div className="modal-box bg-[#EFF2F6] text-[#154153] pt-4 pb-6 px-6 w-[470px] py-10">
                     <form method="dialog">
                       <button className="btn btn-sm absolute flex items-center gap-2">
@@ -424,14 +369,13 @@ function BuyerDashboardPages() {
                       </button>
                     </form>
                     <div>
-                      <h1 className="text-xl font-medium my-6 text-center ">Cancel request</h1>
-                      <div className=" my-14">
+                      <h1 className="text-xl font-medium my-6 text-center">Cancel request</h1>
+                      <div className="my-14">
                         <h2 className="text-[16px] font-medium mb-2">Reason of cancellation</h2>
                         <p className="text-sm text-slate-600">
                           Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                         </p>
                       </div>
-
                       <div className="grid grid-cols-2 gap-3">
                         <button className="py-2 px-4 border border-[#0D95DD] rounded-md text-[#0D95DD]">
                           Decline
@@ -444,10 +388,6 @@ function BuyerDashboardPages() {
                   </div>
                 </dialog>
 
-
-
-
-
                 {/* Action Dropdown (3 dot) */}
                 <td className="px-4 py-3 relative text-[#012939]">
                   <div
@@ -456,223 +396,206 @@ function BuyerDashboardPages() {
                   >
                     {order.action}
                   </div>
-
-                 
-
-{openDropdownAction === order.order_id && (
-  <div className="absolute right-0 w-[195px] text-[16px] text-[#012939] bg-[#FAFDFF] border border-gray-200 rounded shadow-md z-20 p-2 space-y-2">
-    {/* Status-specific options */}
-    {(() => {
-      // Log status for debugging
-      console.log("Order status:", order.status);
-
-      // Normalize status to avoid case sensitivity and handle variations
-      const status = order.status ? order.status.toLowerCase().replace(/[-_\s]/g, '') : '';
-
-      if (["inprogress", "late"].includes(status)) {
-        return (
-          <>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("cancel")}
-            >
-              <RxCrossCircled />
-              <p>Request to cancel</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("extend")}
-            >
-              <MdMoreTime />
-              <p>Extend time</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("support")}
-            >
-              <MdOutlineHeadsetMic />
-              <p>Admin support</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("details")}
-            >
-              <GoProjectRoadmap />
-              <p>View project details</p>
-            </div>
-          </>
-        );
-      }
-
-      if (["complete", "completed"].includes(status)) {
-        return (
-          <>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("cancel")}
-            >
-              <RxCrossCircled />
-              <p>Request to cancel</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("extend")}
-            >
-              <MdMoreTime />
-              <p>Extend time</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("tip")}
-            >
-              <CiDollar />
-              <p>Give a tip</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("review")}
-            >
-              <CiDeliveryTruck />
-              <p>Give a review</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("delivery")}
-            >
-              <CiDeliveryTruck />
-              <p>View delivery</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("support")}
-            >
-              <MdOutlineHeadsetMic />
-              <p>Admin support</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("details")}
-            >
-              <GoProjectRoadmap />
-              <p>View project details</p>
-            </div>
-          </>
-        );
-      }
-
-      if (status === "cancelled") {
-        return (
-          <>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("delete")}
-            >
-              <RiDeleteBin6Line />
-              <p>Delete</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("support")}
-            >
-              <MdOutlineHeadsetMic />
-              <p>Admin support</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("details")}
-            >
-              <GoProjectRoadmap />
-              <p>View project details</p>
-            </div>
-          </>
-        );
-      }
-
-      if (status === "delivered") {
-        return (
-          <>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("cancel")}
-            >
-              <RxCrossCircled />
-              <p>Request to cancel</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("extend")}
-            >
-              <MdMoreTime />
-              <p>Extend time</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("delivery")}
-            >
-              <CiDeliveryTruck />
-              <p>View delivery</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("support")}
-            >
-              <MdOutlineHeadsetMic />
-              <p>Admin support</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("details")}
-            >
-              <GoProjectRoadmap />
-              <p>View project details</p>
-            </div>
-          </>
-        );
-      }
-
-      if (status === "cancelrequest") {
-        return (
-          <>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("extend")}
-            >
-              <MdMoreTime />
-              <p>Extend time</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("viewCancel")}
-            >
-              <GoProjectRoadmap />
-              <p>View cancel request</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("support")}
-            >
-              <MdOutlineHeadsetMic />
-              <p>Admin support</p>
-            </div>
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => handleOpenModal("details")}
-            >
-              <GoProjectRoadmap />
-              <p>View project details</p>
-            </div>
-          </>
-        );
-      }
-
-      // Log unexpected status for debugging
-      console.log(`Unexpected order status: ${order.status}`);
-      return null;
-    })()}
-  </div>
-)}
-
-
+                  {openDropdownAction === order.order_id && (
+                    <div className="absolute right-0 w-[195px] text-[16px] text-[#012939] bg-[#FAFDFF] border border-gray-200 rounded shadow-md z-20 p-2 space-y-2">
+                      {(() => {
+                        const status = order.status ? order.status.toLowerCase().replace(/[-_\s]/g, '') : '';
+                        if (["inprogress", "late"].includes(status)) {
+                          return (
+                            <>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("cancel")}
+                              >
+                                <RxCrossCircled />
+                                <p>Request to cancel</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("extend")}
+                              >
+                                <MdMoreTime />
+                                <p>Extend time</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("support")}
+                              >
+                                <MdOutlineHeadsetMic />
+                                <p>Admin support</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("details")}
+                              >
+                                <GoProjectRoadmap />
+                                <p>View project details</p>
+                              </div>
+                            </>
+                          );
+                        }
+                        if (["complete", "completed"].includes(status)) {
+                          return (
+                            <>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("cancel")}
+                              >
+                                <RxCrossCircled />
+                                <p>Request to cancel</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("extend")}
+                              >
+                                <MdMoreTime />
+                                <p>Extend time</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("tip")}
+                              >
+                                <CiDollar />
+                                <p>Give a tip</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("review")}
+                              >
+                                <TbFileLike />
+                                <p>Give a review</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("delivery")}
+                              >
+                                <MdOutlineCleanHands />
+                                <p>View delivery</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("support")}
+                              >
+                                <MdOutlineHeadsetMic />
+                                <p>Admin support</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("details")}
+                              >
+                                <GoProjectRoadmap />
+                                <p>View project details</p>
+                              </div>
+                            </>
+                          );
+                        }
+                        if (status === "cancelled") {
+                          return (
+                            <>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleDeleteOrder(order.order_id)}
+                              >
+                                <RiDeleteBin6Line />
+                                <p>Delete</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("support")}
+                              >
+                                <MdOutlineHeadsetMic />
+                                <p>Admin support</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("details")}
+                              >
+                                <GoProjectRoadmap />
+                                <p>View project details</p>
+                              </div>
+                            </>
+                          );
+                        }
+                        if (status === "delivered") {
+                          return (
+                            <>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("cancel")}
+                              >
+                                <RxCrossCircled />
+                                <p>Request to cancel</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("extend")}
+                              >
+                                <MdMoreTime />
+                                <p>Extend time</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("delivery")}
+                              >
+                                <MdOutlineCleanHands />
+                                <p>View delivery</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("support")}
+                              >
+                                <MdOutlineHeadsetMic />
+                                <p>Admin support</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("details")}
+                              >
+                                <GoProjectRoadmap />
+                                <p>View project details</p>
+                              </div>
+                            </>
+                          );
+                        }
+                        if (status === "cancelrequest") {
+                          return (
+                            <>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("extend")}
+                              >
+                                <MdMoreTime />
+                                <p>Extend time</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("viewCancel")}
+                              >
+                                <MdOutlineCleanHands />
+                                <p>View cancel request</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("support")}
+                              >
+                                <MdOutlineHeadsetMic />
+                                <p>Admin support</p>
+                              </div>
+                              <div
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => handleOpenModal("details")}
+                              >
+                                <GoProjectRoadmap />
+                                <p>View project details</p>
+                              </div>
+                            </>
+                          );
+                        }
+                        console.log(`Unexpected order status: ${order.status}`);
+                        return null;
+                      })()}
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
@@ -682,169 +605,343 @@ function BuyerDashboardPages() {
 
       {/* DaisyUI Modal active dropdown modal */}
       {openModal && (
-        <div className="fixed inset-0 flex items-center justify-center backdrop-blur z-50 ">
+        <div className="fixed inset-0 flex items-center justify-center backdrop-blur z-50">
           <div className="modal modal-open">
-            {/* Cancel Request Modal */}
             {modalContent === "cancel" && (
-              <div className="modal-box relative bg-[#EFF2F6] w-[470px] h-[370px] rounded p-6 text-[#154153] ">
+              <div className="modal-box relative bg-[#EFF2F6] w-[470px] h-[370px] rounded p-6 text-[#154153]">
                 <button
-                  className="btn btn-sm btn-circle  hover:cursor-pointer"
+                  className="btn btn-sm btn-circle hover:cursor-pointer"
                   onClick={handleCloseModal}
                 >
-                  <div className="flex  items-center gap-2">
-                    <GoArrowLeft /> <span>Back </span>
+                  <div className="flex items-center gap-2">
+                    <GoArrowLeft /> <span>Back</span>
                   </div>
                 </button>
-
-                <h1 className="text-center text-[20px] font-medium">Request to cancel </h1>
-
+                <h1 className="text-center text-[20px] font-medium">Request to cancel</h1>
                 <div className="py-8">
                   <span>Describe the Reason</span>
-
-                  <textarea className="border border-[#5C91B1] p-2 w-full rounded h-[111px] mt-4" placeholder="Enter here " name="" id=""></textarea>
+                  <textarea
+                    className="border border-[#5C91B1] p-2 w-full rounded h-[111px] mt-4"
+                    placeholder="Enter here"
+                  ></textarea>
                 </div>
-
                 <div className="text-center">
-                  <button className="btn btn-active bg-[#0D95DD] p-4 rounded-2xl w-[120px] font-bold text-[17px] text-[#FFFFFF] cursor-pointer">Confirm</button>
+                  <button className="btn btn-active bg-[#0D95DD] p-4 rounded-2xl w-[120px] font-bold text-[17px] text-[#FFFFFF] cursor-pointer">
+                    Confirm
+                  </button>
                 </div>
-
               </div>
             )}
-
-            {/* Give Review Modal */}
-            {modalContent === "review" && (
-              <div className="modal-box relative bg-[#EFF2F6] w-[470px]  rounded p-6 text-[#154153] ">
+            {modalContent === "viewCancel" && (
+              <div className="modal-box relative bg-[#EFF2F6] w-[566px] rounded px-6 py-10 text-[#154153]">
                 <button
-                  className="btn btn-sm btn-circle  hover:cursor-pointer"
+                  className="btn btn-sm btn-circle hover:cursor-pointer"
                   onClick={handleCloseModal}
                 >
-                  <div className="flex  items-center gap-2">
-                    <GoArrowLeft /> <span>Back </span>
+                  <div className="flex items-center gap-2">
+                    <GoArrowLeft /> <span>Back</span>
                   </div>
                 </button>
-
-                <h1 className="text-center text-[20px] font-medium">Give a review </h1>
-
-                <GiveAReviewRating></GiveAReviewRating>
-
-
-
-
-
-
-
-
+                <div>
+                  <h1 className="text-xl font-medium my-6 text-center">Cancel request</h1>
+                  <div className="my-14">
+                    <h2 className="text-[16px] font-medium mb-2">Reason of cancellation</h2>
+                    <p className="text-sm text-slate-600">
+                      Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button className="py-2 px-4 border border-[#0D95DD] rounded-md text-[#0D95DD]">
+                      Decline
+                    </button>
+                    <button className="py-2 px-4 bg-[#0D95DD] text-[#FFFFFF] rounded-md">
+                      Accept
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
-
-            {/* Deliver Order Modal */}
-            {modalContent === "deliver" && (
-              <div className="modal-box relative bg-[#EFF2F6] w-[470px]  rounded p-6 text-[#154153] ">
+            {modalContent === "tip" && (
+              <div className="modal-box relative bg-[#EFF2F6] w-[566px] rounded px-6 py-10 text-[#154153]">
                 <button
-                  className="btn btn-sm btn-circle  hover:cursor-pointer"
+                  className="btn btn-sm btn-circle hover:cursor-pointer"
                   onClick={handleCloseModal}
                 >
-                  <div className="flex  items-center gap-2">
-                    <GoArrowLeft /> <span>Back </span>
+                  <div className="flex items-center gap-2">
+                    <GoArrowLeft /> <span>Back</span>
                   </div>
                 </button>
-
-                <h1 className="text-center text-[20px] font-medium">Delivery </h1>
-                <div className="py-10 space-y-3" >
-                  <div >
-
-                    <span>Delivery message</span>
-                    <input type="text" placeholder="Enter here" className="border border-[#5C91B1] p-2 w-full rounded h-[54px] mt-3 placeholder-[#939597]" />
+                <div>
+                  <h2 className="text-lg font-medium text-[#154153] mb-4 text-center">Give a tip</h2>
+                  <form className="text-[#474747] space-y-6">
+                    <div className="flex justify-between gap-4">
+                      <div className="mb-4">
+                        <label htmlFor="username" className="block text-sm font-medium">
+                          Candidate username
+                        </label>
+                        <div className="relative mt-1">
+                          <input
+                            type="text"
+                            id="username"
+                            placeholder="Search by username"
+                            className="w-full h-[32px] p-2 border border-[#2E9DE0] rounded-md placeholder-[#B4B4B4]"
+                          />
+                          <span className="absolute inset-y-0 right-0 pr-3 flex items-center border-l border-[#2E9DE0] pl-1">
+                            <IoSearchOutline className="rounded" />
+                          </span>
+                        </div>
+                      </div>
+                      <div className="mb-4">
+                        <label htmlFor="amount" className="block text-sm font-medium">
+                          Amount
+                        </label>
+                        <input
+                          type="text"
+                          id="amount"
+                          placeholder="Enter amount"
+                          className="mt-1 w-full px-3 p-2 h-[32px] border border-[#2E9DE0] rounded-md placeholder-[#B4B4B4]"
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <label className="text-sm font-medium">Note</label>
+                      <input
+                        placeholder="Type here"
+                        className="w-full p-2 h-[32px] border border-[#2E9DE0] rounded-md placeholder-[#B4B4B4]"
+                      />
+                    </div>
+                    <div className="mb-4 flex gap-20 items-center">
+                      <div className="flex items-center mb-2">
+                        <input
+                          type="checkbox"
+                          id="chasix"
+                          className="h-4 w-4 text-blue-600 border-[#2E9DE0] rounded"
+                        />
+                        <label htmlFor="chasix" className="ml-2 text-sm">
+                          Pay with ChasixKI wallet
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          id="stripe"
+                          className="h-4 w-4 text-blue-600 border-[#2E9DE0] rounded"
+                        />
+                        <label htmlFor="stripe" className="ml-2 text-sm">
+                          Pay with Stripe
+                        </label>
+                      </div>
+                    </div>
+                    <div className="flex justify-between space-x-3">
+                      <button
+                        type="button"
+                        className="p-1 h-[29px] border border-[#2E9DE0] rounded-md w-full cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="p-1 h-[29px] border bg-[#2E9DE0] rounded-md w-full cursor-pointer"
+                      >
+                        Confirm
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+            {modalContent === "delivery" && (
+              <div className="modal-box relative bg-[#EFF2F6] w-[470px] rounded p-6 text-[#154153]">
+                <button
+                  className="btn btn-sm btn-circle hover:cursor-pointer"
+                  onClick={handleCloseModal}
+                >
+                  <div className="flex items-center gap-2">
+                    <GoArrowLeft /> <span>Back</span>
                   </div>
-
-                  <div className="">
-                    <span>Upload files</span>
-
-                    <textarea
-                      className="border border-[#5C91B1] p-2 w-full rounded h-[111px] mt-3  text-black"
-
-                    ></textarea>
-
-                    <div className="absolute right-30 bottom-34 text-center">
-                      <IoCloudUploadOutline className=" text-[#5C91B1] text-xl pointer-events-none w-[33px] mx-auto" />
-                      <p className="text-[#939597]"> Upload a File<br /> Drag and drop files are or browse</p>
+                </button>
+                <div>
+                  <h1 className="text-xl font-medium my-6 text-center">Delivery request</h1>
+                  <div className="mb-6">
+                    <h2 className="text-[16px] font-medium mb-2">Delivery message</h2>
+                    <p className="text-sm text-slate-600">
+                      Lorem Ipsum is simply dummy text of the printing and typesetting
+                      industry. Lorem Ipsum has been the industrys standard dummy text ever
+                      since the 1500s, when an unknown printer took a galley of type and
+                      scrambled it to make a type specimen book.
+                    </p>
+                  </div>
+                  <div className="mb-12">
+                    <h2 className="text-[16px] font-medium text-slate-700 mb-2">
+                      Uploaded files
+                    </h2>
+                    <div className="flex flex-wrap gap-2">
+                      <div className="bg-slate-200 rounded-md px-3 py-1">
+                        <span className="text-xs text-slate-700">Attachment 1</span>
+                      </div>
+                      <div className="bg-slate-200 rounded-md px-3 py-1">
+                        <span className="text-xs text-slate-700">Attachment 2</span>
+                      </div>
+                      <div className="bg-slate-200 rounded-md px-3 py-1">
+                        <span className="text-xs text-slate-700">Attachment 3</span>
+                      </div>
                     </div>
                   </div>
-
-                </div>
-
-                <div className="text-center">
-                  <button className="btn btn-active bg-[#0D95DD] p-4 rounded-2xl w-[120px] font-bold text-[17px] text-[#FFFFFF] cursor-ponter">Deliver</button>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button className="py-2 px-4 border border-[#0D95DD] rounded-md text-[#0D95DD]">
+                      Edit
+                    </button>
+                    <button className="py-2 px-4 bg-[#0D95DD] text-[#FFFFFF] rounded-md">
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
-
-            {/* Admin Support Modal */}
-            {modalContent === "support" && (
-              <div className="modal-box relative bg-[#EFF2F6] w-[470px]  rounded p-6 text-[#154153] ">
+            {modalContent === "extend" && (
+              <div className="modal-box relative bg-[#EFF2F6] w-[470px] rounded p-6 text-[#154153]">
                 <button
-                  className="btn btn-sm btn-circle  hover:cursor-pointer"
+                  className="btn btn-sm btn-circle hover:cursor-pointer"
                   onClick={handleCloseModal}
                 >
-                  <div className="flex  items-center gap-2">
-                    <GoArrowLeft /> <span>Back </span>
+                  <div className="flex items-center gap-2">
+                    <GoArrowLeft /> <span>Back</span>
                   </div>
                 </button>
-
-                <h1 className="text-center text-[20px] font-medium">Admin support </h1>
-                <div className="py-10 space-y-3" >
-                  <div >
-
-                    <span>Delivery message</span>
-                    <input type="text" placeholder="Enter here" className="border border-[#5C91B1] p-2 w-full rounded h-[54px] mt-3" />
+                <h1 className="text-center text-[20px] font-medium">Time extension</h1>
+                <div className="py-10 space-y-3">
+                  <div className="relative">
+                    <span>New deadline</span>
+                    <input
+                      type="date"
+                      className="border border-[#5C91B1] p-2 w-full rounded h-[54px] mt-3 appearance-none pr-10"
+                    />
                   </div>
-
-                  <div className="">
-                    <span>Give a subject</span>
-
-                    <textarea className="border border-[#5C91B1] p-2 w-full rounded h-[111px] mt-3" placeholder="Enter here " name="" id=""></textarea>
+                  <div>
+                    <span>Describe the Reason</span>
+                    <textarea
+                      className="border border-[#5C91B1] p-2 w-full rounded h-[111px] mt-3"
+                      placeholder="Enter here"
+                    ></textarea>
                   </div>
-
                 </div>
-
                 <div className="text-center">
-                  <button className="btn btn-active bg-[#0D95DD] p-4 rounded-2xl w-[120px] font-bold text-[17px] text-[#FFFFFF] cursor-ponter">Submit</button>
+                  <button className="btn btn-active bg-[#0D95DD] p-4 rounded-2xl w-[120px] font-bold text-[17px] text-[#FFFFFF] cursor-pointer">
+                    Confirm
+                  </button>
                 </div>
               </div>
             )}
-
-            {/* projects dettails */}
+            {modalContent === "review" && (
+              <div className="modal-box relative bg-[#EFF2F6] w-[470px] rounded p-6 text-[#154153]">
+                <button
+                  className="btn btn-sm btn-circle hover:cursor-pointer"
+                  onClick={handleCloseModal}
+                >
+                  <div className="flex items-center gap-2">
+                    <GoArrowLeft /> <span>Back</span>
+                  </div>
+                </button>
+                <h1 className="text-center text-[20px] font-medium">Give a review</h1>
+                <GiveAReviewRating />
+              </div>
+            )}
+            {modalContent === "deliver" && (
+              <div className="modal-box relative bg-[#EFF2F6] w-[470px] rounded p-6 text-[#154153]">
+                <button
+                  className="btn btn-sm btn-circle hover:cursor-pointer"
+                  onClick={handleCloseModal}
+                >
+                  <div className="flex items-center gap-2">
+                    <GoArrowLeft /> <span>Back</span>
+                  </div>
+                </button>
+                <h1 className="text-center text-[20px] font-medium">Delivery</h1>
+                <div className="py-10 space-y-3">
+                  <div>
+                    <span>Delivery message</span>
+                    <input
+                      type="text"
+                      placeholder="Enter here"
+                      className="border border-[#5C91B1] p-2 w-full rounded h-[54px] mt-3 placeholder-[#939597]"
+                    />
+                  </div>
+                  <div className="relative">
+                    <span>Upload files</span>
+                    <textarea
+                      className="border border-[#5C91B1] p-2 w-full rounded h-[111px] mt-3 text-black"
+                    ></textarea>
+                    <div className="absolute right-30 bottom-34 text-center">
+                      <IoCloudUploadOutline className="text-[#5C91B1] text-xl pointer-events-none w-[33px] mx-auto" />
+                      <p className="text-[#939597]">Upload a File<br />Drag and drop files or browse</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <button className="btn btn-active bg-[#0D95DD] p-4 rounded-2xl w-[120px] font-bold text-[17px] text-[#FFFFFF] cursor-pointer">
+                    Deliver
+                  </button>
+                </div>
+              </div>
+            )}
+            {modalContent === "support" && (
+              <div className="modal-box relative bg-[#EFF2F6] w-[470px] rounded p-6 text-[#154153]">
+                <button
+                  className="btn btn-sm btn-circle hover:cursor-pointer"
+                  onClick={handleCloseModal}
+                >
+                  <div className="flex items-center gap-2">
+                    <GoArrowLeft /> <span>Back</span>
+                  </div>
+                </button>
+                <h1 className="text-center text-[20px] font-medium">Admin support</h1>
+                <div className="py-10 space-y-3">
+                  <div>
+                    <span>Delivery message</span>
+                    <input
+                      type="text"
+                      placeholder="Enter here"
+                      className="border border-[#5C91B1] p-2 w-full rounded h-[54px] mt-3"
+                    />
+                  </div>
+                  <div>
+                    <span>Give a subject</span>
+                    <textarea
+                      className="border border-[#5C91B1] p-2 w-full rounded h-[111px] mt-3"
+                      placeholder="Enter here"
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <button className="btn btn-active bg-[#0D95DD] p-4 rounded-2xl w-[120px] font-bold text-[17px] text-[#FFFFFF] cursor-pointer">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            )}
             {modalContent === "details" && (
-
-
-
               <div className="w-[40%] h-full mx-auto">
                 <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
                   <button
-                    className="btn btn-sm btn-circle  hover:cursor-pointer"
+                    className="btn btn-sm btn-circle hover:cursor-pointer"
                     onClick={handleCloseModal}
                   >
-                    <div className="flex  items-center gap-2 my-2">
-                      <GoArrowLeft /> <span>Back </span>
+                    <div className="flex items-center gap-2 my-2">
+                      <GoArrowLeft /> <span>Back</span>
                     </div>
                   </button>
-                  {/* Header with title and menu */}
                   <div className="flex justify-between items-start mb-2">
                     <h2 className="text-lg font-medium text-gray-800">Manual Data Entry From Text Documents</h2>
                     <button className="text-gray-400 hover:text-gray-600">
                       <PiDotsThreeBold />
                     </button>
                   </div>
-
-                  {/* Budget and time info */}
                   <div className="flex justify-between items-center mb-4">
                     <p className="text-gray-700">Budget 20USD/Per Hour (4 Person Required)</p>
                     <p className="text-gray-700">
                       Time: <span className="font-medium">6 Hours</span>
                     </p>
                   </div>
-
-                  {/* Description */}
                   <div className="mb-4">
                     <div className="relative">
                       <p className="text-gray-600 leading-relaxed">
@@ -852,7 +949,6 @@ function BuyerDashboardPages() {
                         {!showFullText && (
                           <>
                             <span className="transition-opacity duration-300 opacity-100">...</span>
-                            {/* See more button beside short text */}
                             <button
                               className="text-blue-500 hover:underline focus:outline-none ml-1"
                               onClick={() => setShowFullText(true)}
@@ -862,15 +958,10 @@ function BuyerDashboardPages() {
                           </>
                         )}
                       </p>
-
-                      {/* Additional text that shows/hides */}
                       <div
-                        className={`overflow-hidden transition-all duration-300 ease-in-out ${showFullText ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"
-                          }`}
+                        className={`overflow-hidden transition-all duration-300 ease-in-out ${showFullText ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"}`}
                       >
                         <p className="text-gray-600 leading-relaxed">{description.substring(220)}</p>
-
-                        {/* See less button after full text */}
                         {showFullText && (
                           <button
                             className="text-blue-500 hover:underline focus:outline-none mt-1 block"
@@ -882,10 +973,6 @@ function BuyerDashboardPages() {
                       </div>
                     </div>
                   </div>
-
-
-
-                  {/* Skills required */}
                   <div className="flex flex-wrap justify-between items-center mb-4">
                     <div>
                       <span className="text-gray-700 mr-2">Skill Required:</span>
@@ -904,8 +991,6 @@ function BuyerDashboardPages() {
                     </div>
                     <span className="text-gray-400 text-sm">10 min ago</span>
                   </div>
-
-                  {/* Attachments */}
                   <div className="flex flex-wrap gap-2">
                     <div className="bg-gray-100 rounded-md px-3 py-1.5 cursor-pointer">
                       <span className="text-sm text-gray-600">Attachment 1</span>
@@ -920,13 +1005,11 @@ function BuyerDashboardPages() {
                 </div>
               </div>
             )}
-
-
           </div>
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default BuyerDashboardPages
+export default BuyerDashboardPages;

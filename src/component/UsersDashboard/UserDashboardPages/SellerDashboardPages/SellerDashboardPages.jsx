@@ -22,10 +22,7 @@ function SellerDashboardPages() {
 
 
    
-        // Tabs handle
-        // const [activeTab, setActiveTab] = useState("approved");
-         // default: seller
-      
+       
     
         // Pagination handle
         // const [currentPage, setCurrentPage] = useState(1);
