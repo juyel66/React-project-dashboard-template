@@ -11,7 +11,7 @@ function UserProfileDettails() {
         }
     }
     return (
-        <div className="flex items-center justify-center bg-gradient-to-bp-4 nanito">
+        <div className="flex items-center justify-center bg-gradient-to-bp-4 nunito">
             <div className="w-full   rounded-lg  p-8">
                 <h1 className="text-2xl font-bold text-center text-[#154153] mb-8 text-[24px] ">Profile Details</h1>
 

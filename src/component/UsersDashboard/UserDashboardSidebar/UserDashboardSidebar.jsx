@@ -68,7 +68,7 @@ const UserDashboardSidebar = () => {
         </NavLink>
 
         <NavLink
-          to="/dashboard/taskProgress"
+          to="/dashboard/user_wallet"
           className={({ isActive }) =>
             `flex items-center gap-3 px-6 py-3 transition-colors duration-200 ${
               isActive ? 'bg-[#0D95DD] text-white rounded-md' : 'hover:bg-[#0daddd] hover:text-white rounded-md'
