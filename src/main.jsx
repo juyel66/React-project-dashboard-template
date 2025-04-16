@@ -23,6 +23,7 @@ import BuyerDashboardPages from './component/UsersDashboard/UserDashboardPages/B
 import CreateOrder from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/CreateOrder.jsx';
 import CreatedOrderedTable from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/CreatedOrderedTable.jsx';
 import BuyerCandidateList from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/BuyerCandidateList.jsx';
+import UserProfileDettails from './component/UsersDashboard/UserDashboardPages/UserProfileDettails/UserProfileDettails.jsx';
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path:"buyer_candidate_list",
         element:<BuyerCandidateList/>
+      },
+      {
+        path:"user_profile_dettails",
+        element:<UserProfileDettails/>
       }
      
     ]

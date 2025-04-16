@@ -9,7 +9,7 @@ import { IoIosArrowForward, IoIosSearch } from "react-icons/io";
 import { IoCloudUploadOutline, IoSearchOutline, IoTimeOutline } from "react-icons/io5";
 import { MdMoreTime, MdOutlineCleanHands, MdOutlineHeadsetMic } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
-import { TbFileLike } from "react-icons/tb";
+import { TbFileLike, TbListDetails } from "react-icons/tb";
 import { VscEye } from "react-icons/vsc";
 import { PiDotsThreeBold } from "react-icons/pi";
 import GiveAReviewRating from '../../UserDashboardPages/GiveAReviewRating';
@@ -456,7 +456,7 @@ function BuyerDashboardPages() {
                                 className="flex items-center gap-2 cursor-pointer"
                                 onClick={() => handleOpenModal("details")}
                               >
-                                <GoProjectRoadmap />
+                                <TbListDetails />
                                 <p>View project details</p>
                               </div>
                             </>
@@ -511,7 +511,7 @@ function BuyerDashboardPages() {
                                 className="flex items-center gap-2 cursor-pointer"
                                 onClick={() => handleOpenModal("details")}
                               >
-                                <GoProjectRoadmap />
+                               <TbListDetails />
                                 <p>View project details</p>
                               </div>
                             </>
@@ -538,7 +538,7 @@ function BuyerDashboardPages() {
                                 className="flex items-center gap-2 cursor-pointer"
                                 onClick={() => handleOpenModal("details")}
                               >
-                                <GoProjectRoadmap />
+                               <TbListDetails />
                                 <p>View project details</p>
                               </div>
                             </>
@@ -579,7 +579,7 @@ function BuyerDashboardPages() {
                                 className="flex items-center gap-2 cursor-pointer"
                                 onClick={() => handleOpenModal("details")}
                               >
-                                <GoProjectRoadmap />
+                               <TbListDetails />
                                 <p>View project details</p>
                               </div>
                             </>
@@ -613,7 +613,7 @@ function BuyerDashboardPages() {
                                 className="flex items-center gap-2 cursor-pointer"
                                 onClick={() => handleOpenModal("details")}
                               >
-                                <GoProjectRoadmap />
+                                <TbListDetails />
                                 <p>View project details</p>
                               </div>
                             </>
