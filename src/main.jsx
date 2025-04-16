@@ -25,6 +25,7 @@ import CreatedOrderedTable from './component/UsersDashboard/UserDashboardPages/B
 import BuyerCandidateList from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/BuyerCandidateList.jsx';
 import UserProfileDettails from './component/UsersDashboard/UserDashboardPages/UserProfileDettails/UserProfileDettails.jsx';
 import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet/UserWallet.jsx';
+import UserWithdrawalMethod from './component/UsersDashboard/UserDashboardPages/UserWithdrawalMethod/UserWithdrawalMethod.jsx';
 // import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet/UserWallet.jsx';
 
 const router = createBrowserRouter([
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path:"user_wallet",
         element:<UserWallet/>
+      },
+      {
+        path:"user_withdrawal_method",
+        element:<UserWithdrawalMethod/>
       }
      
     ]
