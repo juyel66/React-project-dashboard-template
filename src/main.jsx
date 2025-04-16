@@ -26,7 +26,8 @@ import BuyerCandidateList from './component/UsersDashboard/UserDashboardPages/Bu
 import UserProfileDettails from './component/UsersDashboard/UserDashboardPages/UserProfileDettails/UserProfileDettails.jsx';
 import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet/UserWallet.jsx';
 import UserWithdrawalMethod from './component/UsersDashboard/UserDashboardPages/UserWithdrawalMethod/UserWithdrawalMethod.jsx';
-// import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet/UserWallet.jsx';
+import UserNotifications from './component/UsersDashboard/UserDashboardPages/UserNotifications/UserNotifications.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       {
         path:"user_withdrawal_method",
         element:<UserWithdrawalMethod/>
+      },
+      {
+        path:"user_notifications",
+        element:<UserNotifications/>
       }
      
     ]

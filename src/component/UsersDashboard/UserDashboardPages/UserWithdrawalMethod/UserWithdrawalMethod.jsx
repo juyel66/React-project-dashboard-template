@@ -4,6 +4,7 @@ import imgOne from '../../../../assets/image/wallet_img_one.png'; // Mastercard
 import imgTwo from '../../../../assets/image/wallet_img_two.png'; // Amex
 import imgThree from '../../../../assets/image/wallet_img_three.png'; // Visa
 import imgFour from '../../../../assets/image/wallet_img_four.png'; // Discover
+import { Link } from 'react-router-dom';
 
 function UserWithdrawalMethod() {
     const [formData, setFormData] = useState({
@@ -70,9 +71,9 @@ function UserWithdrawalMethod() {
     return (
         <div className="p-6 nunito">
             <div className="relative">
-                <button className="btn btn-sm flex items-center gap-2">
+                <Link to="/dashboard/user_wallet" className="btn btn-sm flex items-center gap-2">
                     <GoArrowLeft /> <span>Back</span>
-                </button>
+                </Link>
                 <h1 className="text-[24px] text-[#154153] font-bold text-center">
                     Withdrawal Method
                 </h1>

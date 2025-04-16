@@ -661,33 +661,33 @@ function BuyerDashboardPages() {
               </div>
             )}
             {modalContent === "viewCancel" && (
-              <div className="modal-box relative bg-[#EFF2F6] w-[566px] rounded px-6 py-10 text-[#154153]">
-                <button
-                  className="btn btn-sm btn-circle hover:cursor-pointer"
-                  onClick={handleCloseModal}
-                >
-                  <div className="flex items-center gap-2">
-                    <GoArrowLeft /> <span>Back</span>
-                  </div>
-                </button>
-                <div>
-                  <h1 className="text-xl font-medium my-6 text-center">Cancel request</h1>
-                  <div className="my-14">
-                    <h2 className="text-[16px] font-medium mb-2">Reason of cancellation</h2>
-                    <p className="text-sm text-slate-600">
-                      Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button className="py-2 px-4 border border-[#0D95DD] rounded-md text-[#0D95DD]">
-                      Decline
-                    </button>
-                    <button className="py-2 px-4 bg-[#0D95DD] text-[#FFFFFF] rounded-md">
-                      Accept
-                    </button>
-                  </div>
-                </div>
-              </div>
+                      <div className="modal-box relative bg-[#EFF2F6] w-[566px] rounded px-6 py-10 text-[#154153]">
+                        <button
+                          className="btn btn-sm btn-circle hover:cursor-pointer"
+                          onClick={handleCloseModal}
+                        >
+                          <div className="flex items-center gap-2">
+                            <GoArrowLeft /> <span>Back</span>
+                          </div>
+                        </button>
+                        <div>
+                          <h1 className="text-xl font-medium my-6 text-center">Cancel request</h1>
+                          <div className="my-14">
+                            <h2 className="text-[16px] font-medium mb-2">Reason of cancellation</h2>
+                            <p className="text-sm text-slate-600">
+                              Lorem Ipsumis simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                          </div>
+                          <div className="grid grid-cols-2 gap-3">
+                            <button className="py-2 px-4 border border-[#0D95DD] rounded-md text-[#0D95DD]">
+                              Decline
+                            </button>
+                            <button className="py-2 px-4 bg-[#0D95DD] text-[#FFFFFF] rounded-md">
+                              Accept
+                            </button>
+                          </div>
+                        </div>
+                      </div>
             )}
             {modalContent === "tip" && (
               <div className="modal-box relative bg-[#EFF2F6] w-[566px] rounded px-6 py-10 text-[#154153]">

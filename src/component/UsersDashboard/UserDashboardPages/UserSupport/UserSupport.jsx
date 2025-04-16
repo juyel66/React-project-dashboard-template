@@ -85,7 +85,7 @@ function UserSupport() {
                                         </button>
                                     </form>
                                 </div>
-                               
+
 
                                 <h1 className="text-center text-[20px] font-medium">Support Ticket </h1>
                                 <div className="py-10 space-y-3" >
@@ -131,7 +131,37 @@ function UserSupport() {
                                     <td className="py-3 px-4  ">{ticket.reason}</td>
                                     <td className="py-3 px-4  text-[#0D95DD] underline cursor-pointer">
 
-                                        {ticket.details}
+                                        {/* {ticket.details} */}
+
+                                        {/* Open the modal using */}
+                                        <button className="btn" onClick={() => document.getElementById('my_modal_2').showModal()}>   {ticket.details}</button>
+                                        <dialog id="my_modal_2" className="modal mx-auto my-auto bg-[#EFF2F6] p-4 rounded w-[470px]">
+                                            <div className="modal-box">
+                                                <div className="modal-action">
+
+                                                    <form method="dialog">
+                                                        <button className="flex items-center gap-2">
+                                                            <GoArrowLeft /> <span>Back</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+
+
+
+                                                <div className='space-y-3'>
+                                                    <h3 className=" text-lg text-[#0D95DD] text-[20px] text-center font-medium"><span>Ticket</span> ({ticket.ticket_id})</h3>
+                                                    <h4 className='font-medium text-[#154153]'>Delivery message</h4>
+                                                    <p className="py-4 text-[#154153]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                </div>
+
+                                            </div>
+                                        </dialog>
+
+
+
+
+
+
 
                                     </td>
                                     <td className="py-3 px-4 "> {ticket.date_of_creation}</td>
