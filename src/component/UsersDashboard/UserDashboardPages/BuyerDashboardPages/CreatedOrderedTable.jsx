@@ -10,14 +10,25 @@ import { BiEdit } from 'react-icons/bi';
 import { IoEyeOutline } from 'react-icons/io5';
 
 function CreatedOrderedTable() {
+  // State for toggling between 'seller' and 'buyer'
   const [activeTab, setActiveTab] = useState('buyer');
+
+  // Status dropdown toggle state
   const [isOpen, setIsOpen] = useState(false);
+
+  // Filter status from dropdown (e.g., Created, Cancelled)
   const [statusFilter, setStatusFilter] = useState('');
+
+  // Search text for Project ID
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Which action dropdown is open (stores projectId)
   const [openDropdownAction, setOpenDropdownAction] = useState(null);
 
+  // Refs to detect clicks outside action dropdowns
   const dropdownRefs = useRef({});
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       const isClickInsideAnyDropdown = Object.values(dropdownRefs.current).some(ref => {
@@ -32,17 +43,22 @@ function CreatedOrderedTable() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Switch between tabs
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
+  // Handle search input
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
+  // Toggle specific action dropdown by projectId
   const handleDropdownToggleAction = (projectId) => {
     setOpenDropdownAction(prev => (prev === projectId ? null : projectId));
   };
+
+  // Sample data array
   const projectData = [
     {
       date: "19 Apr 2021, 00:00",
@@ -98,14 +114,21 @@ function CreatedOrderedTable() {
       projectId: "34034482",
       amount: "$15,600",
     },
-  ]
+  ];
+
+  // 🔍 Filter projects based on search query (Project ID)
+  const filteredProjects = projectData.filter(project =>
+    project.projectId.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="p-6">
+      {/* Header */}
       <h1 className="text-[24.8px] font-bold text-center mb-10 nunito">
         Order Management
       </h1>
 
+      {/* Tab buttons for Buyer / Seller */}
       <div className="flex mb-4 justify-center">
         <div className="bg-[#acaeaf23] rounded-full">
           <button
@@ -123,7 +146,9 @@ function CreatedOrderedTable() {
         </div>
       </div>
 
+      {/* Filters and search */}
       <div className="flex justify-between mx-6 my-3">
+        {/* Dropdown for order status */}
         <div className="relative inline-block text-left">
           <div
             className="text-[#012939] flex items-center gap-1 bg-[#F6F8FA] p-2 rounded cursor-pointer"
@@ -133,6 +158,7 @@ function CreatedOrderedTable() {
             <IoIosArrowForward className={`transition-transform ${isOpen ? 'rotate-90' : ''}`} />
           </div>
 
+          {/* Dropdown menu */}
           {isOpen && (
             <div className="absolute mt-2 w-40 text-[#012939] bg-white shadow-md rounded p-2 z-10 space-y-2">
               {['Created', 'Cancel request', 'Delivered', 'Late', 'Cancelled', 'In-Progress', ''].map((status, index) => (
@@ -152,6 +178,7 @@ function CreatedOrderedTable() {
           )}
         </div>
 
+        {/* Create order + Search input */}
         <div className="flex gap-4">
           <Link to="/dashboard/createBuyerOrder">
             <p className="text-[#38A3DC] border border-[#38A3DC] p-1 rounded cursor-pointer">
@@ -159,6 +186,7 @@ function CreatedOrderedTable() {
             </p>
           </Link>
           <div className="flex items-center">
+            {/* Search input */}
             <input
               className="bg-[#F6F8FA] rounded-l p-2 outline-none"
               type="text"
@@ -172,7 +200,8 @@ function CreatedOrderedTable() {
       </div>
 
       <hr className="mx-6 text-[#D8DBDD] mb-3" />
-      {/* table */}
+
+      {/* 📊 Table displaying filtered project data */}
       <div className="w-full overflow-hidden rounded">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -185,8 +214,10 @@ function CreatedOrderedTable() {
                 <th className="px-6 py-4 text-sm font-semibold text-[#2c3e50]">Action</th>
               </tr>
             </thead>
+
             <tbody>
-              {projectData.map((project, index) => (
+              {/* Render filtered projects */}
+              {filteredProjects.map((project, index) => (
                 <tr key={index}>
                   <td className="border-b border-[#C1DDEF] px-6 py-4 text-sm">{project.date}</td>
                   <td className="border-b border-[#C1DDEF] px-6 py-4 text-sm">
@@ -197,6 +228,8 @@ function CreatedOrderedTable() {
                   </td>
                   <td className="border-b border-[#C1DDEF] px-6 py-4 text-sm">{project.projectId}</td>
                   <td className="border-b border-[#C1DDEF] px-6 py-4 text-sm">{project.amount}</td>
+
+                  {/* Action dropdown per project row */}
                   <td className="border-b border-[#C1DDEF] px-6 py-4 text-sm w-[195px]">
                     <div
                       className="relative"
@@ -209,16 +242,17 @@ function CreatedOrderedTable() {
                         <PiDotsThree className="h-5 w-5" />
                       </button>
 
+                      {/* Dropdown menu for actions */}
                       {openDropdownAction === project.projectId && (
-                        <div className="absolute right-0 mt-1 w-[195px] bg-[#FAFDFF]   rounded z-10">
+                        <div className="absolute right-0 mt-1 w-[195px] bg-[#FAFDFF] rounded z-10">
                           <ul className="text-sm text-[#2c3e50]">
-                            <Link to="/dashboard/buyer_candidate_list" className=" px-4 py-2 cursor-pointer flex items-center gap-2"> <IoEyeOutline />
-                            
-                            Show all bids</Link>
-                            <li className=" px-4 py-2 cursor-pointer flex items-center gap-2"> <BiEdit />Edit</li>
-                            <li className=" px-4 py-2 cursor-pointer flex items-center gap-2"> <RiDeleteBinLine />Delete</li>
-                            <li className=" px-4 py-2 cursor-pointer flex items-center gap-2"> <BsPersonCheckFill />Assign</li>
-                            <li className=" px-4 py-2 cursor-pointer flex items-center gap-2"><TbListDetails /> Details</li>
+                            <Link to="/dashboard/buyer_candidate_list" className="px-4 py-2 cursor-pointer flex items-center gap-2">
+                              <IoEyeOutline /> Show all bids
+                            </Link>
+                            <li className="px-4 py-2 cursor-pointer flex items-center gap-2"><BiEdit />Edit</li>
+                            <li className="px-4 py-2 cursor-pointer flex items-center gap-2"><RiDeleteBinLine />Delete</li>
+                            <li className="px-4 py-2 cursor-pointer flex items-center gap-2"><BsPersonCheckFill />Assign</li>
+                            <li className="px-4 py-2 cursor-pointer flex items-center gap-2"><TbListDetails />Details</li>
                           </ul>
                         </div>
                       )}
@@ -227,6 +261,7 @@ function CreatedOrderedTable() {
                 </tr>
               ))}
             </tbody>
+
           </table>
         </div>
       </div>
