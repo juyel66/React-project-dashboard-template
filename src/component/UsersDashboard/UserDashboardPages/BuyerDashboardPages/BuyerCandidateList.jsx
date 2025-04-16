@@ -96,7 +96,7 @@ function BuyerCandidateList() {
                                     </button>
 
                                     {/* First Modal */}
-                                    <dialog id="my_modal_1" className="modal mx-auto my-auto w-[590px] p-6 rounded bg-[#F6F8FA]">
+                                    <dialog id="my_modal_1" className="modal mx-auto my-auto w-[590px] space-y-6 p-6 pb-10 rounded-[16px] bg-[#F6F8FA]">
                                         <form method="dialog">
                                             <button className="btn btn-sm flex items-center gap-2 mb-8">
                                                 <GoArrowLeft /> <span>Back</span>
@@ -171,7 +171,7 @@ function BuyerCandidateList() {
                                             </div>
 
                                             {/* Footer Info */}
-                                            <div className="grid grid-cols-2 gap-4 p-4">
+                                            <div className="grid grid-cols-2 gap-4 ">
                                                 <div className="flex">
                                                     <span className="text-sm text-gray-500">Language:</span>
                                                     <span className="font-medium text-gray-800 ml-10">English, Bangla</span>
@@ -185,18 +185,60 @@ function BuyerCandidateList() {
                                     </dialog>
 
                                     {/* Second Modal */}
-                                    <dialog id="my_modal_2" className="modal mx-auto my-auto w-[500px] p-6 rounded bg-white">
+                                    <dialog id="my_modal_2" className="modal mx-auto my-auto w-[590px] max-h-[700px] space-y-6 p-6 pb-10 rounded-[16px] bg-[#F6F8FA]">
                                         <div className="modal-box">
-                                            <form method="dialog">
-                                                <button className="btn btn-sm mb-4">Back</button>
-                                            </form>
-                                            <h2 className="text-xl font-semibold text-[#012939] mb-2">Reviews</h2>
-                                            <p className="text-sm text-gray-600">Here you can add all 8 reviews or review summary.</p>
-                                            {/* Example Reviews */}
-                                            <ul className="mt-4 space-y-2">
-                                                <li className="text-sm">⭐️⭐️⭐️⭐️⭐️ - "Very professional and fast!"</li>
-                                                <li className="text-sm">⭐️⭐️⭐️⭐️ - "Good communication and quality work."</li>
-                                            </ul>
+                                            <div className=''>
+                                                <form method="dialog">
+                                                    <button className="btn btn-sm flex items-center gap-2 ">
+                                                        <GoArrowLeft /> <span>Back</span>
+                                                    </button>
+                                                </form>
+                                                <p className="text-xl font-bold text-[#012939] mb-2 text-center text-[24px] ">Reviews (8)</p>
+                                            </div>
+
+                                            <div>
+                                                <div className='flex justify-between space-y-2 pt-4'>
+                                                    <div className='flex gap-2'>
+                                                        <img src="" alt="" className='w-10 h-10 bg-[#D9D9D9] rounded-full' />
+                                                        <div>
+                                                            <p className='text-[#012939]'>MovieBuff45</p>
+                                                            <p className='text-[#939597]'>Ui/Ux Designer</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-sm ">⭐️⭐️⭐️⭐️⭐️ </div>
+                                                </div>
+                                                <p className='text-[#939597]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
+                                                <hr  className='text-[#C1DDEF] mt-2'/>
+                                            </div>
+                                            <div>
+                                                <div className='flex justify-between space-y-2 pt-4'>
+                                                    <div className='flex gap-2'>
+                                                        <img src="" alt="" className='w-10 h-10 bg-[#D9D9D9] rounded-full' />
+                                                        <div>
+                                                            <p className='text-[#012939]'>MovieBuff45</p>
+                                                            <p className='text-[#939597]'>Ui/Ux Designer</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-sm ">⭐️⭐️⭐️⭐️⭐️ </div>
+                                                </div>
+                                                <p className='text-[#939597]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
+                                                <hr  className='text-[#C1DDEF] mt-2'/>
+                                            </div>
+                                            <div>
+                                                <div className='flex justify-between space-y-2 pt-4'>
+                                                    <div className='flex gap-2'>
+                                                        <img src="" alt="" className='w-10 h-10 bg-[#D9D9D9] rounded-full' />
+                                                        <div>
+                                                            <p className='text-[#012939]'>MovieBuff45</p>
+                                                            <p className='text-[#939597]'>Ui/Ux Designer</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-sm ">⭐️⭐️⭐️⭐️⭐️ </div>
+                                                </div>
+                                                <p className='text-[#939597]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
+                                                <hr  className='text-[#C1DDEF] mt-2'/>
+                                            </div>
+                                            
                                         </div>
                                     </dialog>
 
