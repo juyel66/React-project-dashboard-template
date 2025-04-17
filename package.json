@@ -12,6 +12,8 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.0.9",
+    "@vis.gl/react-google-maps": "^1.5.2",
+    "axios": "^1.8.4",
     "localforage": "^1.10.0",
     "lucide-react": "^0.487.0",
     "match-sorter": "^8.0.0",

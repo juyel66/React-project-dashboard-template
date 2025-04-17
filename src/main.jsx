@@ -28,6 +28,7 @@ import UserProfileDettails from './component/UsersDashboard/UserDashboardPages/U
 import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet/UserWallet.jsx';
 import UserWithdrawalMethod from './component/UsersDashboard/UserDashboardPages/UserWithdrawalMethod/UserWithdrawalMethod.jsx';
 import UserNotifications from './component/UsersDashboard/UserDashboardPages/UserNotifications/UserNotifications.jsx';
+import Registration from './component/Shared/Registration/Registration.jsx';
 
 
 const router = createBrowserRouter([
@@ -123,6 +124,14 @@ const router = createBrowserRouter([
         element:<AdminDashboardNotification/>
       }
     ]
+  },
+  // .................Athentications.................
+  
+  {
+    path:"/registration",
+    element:<Registration/>
+    
+
   }
 
 ]);
