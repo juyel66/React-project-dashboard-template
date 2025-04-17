@@ -29,6 +29,11 @@ import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet
 import UserWithdrawalMethod from './component/UsersDashboard/UserDashboardPages/UserWithdrawalMethod/UserWithdrawalMethod.jsx';
 import UserNotifications from './component/UsersDashboard/UserDashboardPages/UserNotifications/UserNotifications.jsx';
 import Registration from './component/Shared/Registration/Registration.jsx';
+import Login from './component/Shared/Login/Login.jsx';
+import ConfirmEmail from './component/Shared/ConfirmEmail/ConfirmEmail.jsx';
+import Verification from './component/Shared/Verification/Verification.jsx';
+import ConfirmPassword from './component/Shared/ConfirmPassword/ConfirmPassword.jsx';
+import PasswordChangeSuccesfully from './component/Shared/PasswordChangeSuccesfully/PasswordChangeSuccesfully.jsx';
 
 
 const router = createBrowserRouter([
@@ -132,6 +137,26 @@ const router = createBrowserRouter([
     element:<Registration/>
     
 
+  },
+  {
+    path:'/login',
+    element:<Login/>
+  },
+  {
+    path:'/confirm_email',
+    element:<ConfirmEmail/>
+  },
+  {
+    path:'/verification',
+    element:<Verification/>
+  },
+  {
+    path:'/confirm_password',
+    element:<ConfirmPassword/>
+  },
+  {
+    path:'/password_change_succesfull',
+    element:<PasswordChangeSuccesfully/>
   }
 
 ]);
