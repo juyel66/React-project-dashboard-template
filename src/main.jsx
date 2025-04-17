@@ -24,6 +24,7 @@ import CreateOrder from './component/UsersDashboard/UserDashboardPages/BuyerDash
 import CreatedOrderedTable from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/CreatedOrderedTable.jsx';
 import BuyerCandidateList from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/BuyerCandidateList.jsx';
 import UserProfileDettails from './component/UsersDashboard/UserDashboardPages/UserProfileDettails/UserProfileDettails.jsx';
+// import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet/UserWallet.jsx';
 import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet/UserWallet.jsx';
 import UserWithdrawalMethod from './component/UsersDashboard/UserDashboardPages/UserWithdrawalMethod/UserWithdrawalMethod.jsx';
 import UserNotifications from './component/UsersDashboard/UserDashboardPages/UserNotifications/UserNotifications.jsx';
