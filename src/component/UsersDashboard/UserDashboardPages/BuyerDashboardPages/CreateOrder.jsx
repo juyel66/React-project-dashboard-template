@@ -166,9 +166,15 @@ function CreateOrder() {
                 className="text-sm pl-8 h-[55px] w-full mx-auto bg-[#F8FCFF] border border-[#5285A7] rounded-[8px] focus:outline-none"
               />
             </div>
-            <button className="text-xs text-[#154153] py-5 bg-[#BDDDF4] border border-[#1D7EC5] px-10 rounded-[8px]">
+           <div className="flex gap-3">
+           <button className="text-xs text-[#154153] py-5 bg-[#BDDDF4] border border-[#1D7EC5] px-10 rounded-[8px]">
               Auto locate
             </button>
+
+            <div className="text-xs text-[#154153] py-5 bg-[#EEF2F5] px-10 rounded-[8px]">
+              (Task location)
+            </div>
+           </div>
           </div>
 
           {/* Google Map */}
