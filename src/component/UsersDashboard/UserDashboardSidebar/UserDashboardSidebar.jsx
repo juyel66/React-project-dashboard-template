@@ -9,6 +9,8 @@ import { BiSupport } from "react-icons/bi";
 const UserDashboardSidebar = () => {
   const location = useLocation();
   const isProjectActive = location.pathname.startsWith('/dashboard/user_notifications');
+  
+  
 
   return (
     <div className="pt-24">

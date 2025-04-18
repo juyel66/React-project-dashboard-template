@@ -2,7 +2,7 @@
 
 
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { GoArrowLeft, GoProjectRoadmap } from "react-icons/go";
 import { IoIosArrowForward, IoIosSearch } from "react-icons/io";
@@ -24,6 +24,8 @@ function SellerDashboardPages() {
   const [openModal, setOpenModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [showFullText, setShowFullText] = useState(false);
+  const dropdownRef = useRef(null); // For status filter dropdown
+  const actionDropdownRef = useRef(null); // For action dropdown
   
   // Make orderManagementData a state variable
   const [orderManagementData, setOrderManagementData] = useState([
@@ -111,6 +113,29 @@ function SellerDashboardPages() {
 
   const description = `Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the Lorem Ipsum is simply dum my text of the printing and type setting industry. Lorem standard dummy text ever since the. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`;
 
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if click is outside the status filter dropdown
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+  
+      // Check if click is outside the action dropdown
+      if (actionDropdownRef.current && !actionDropdownRef.current.contains(event.target)) {
+        setOpenDropdownAction(null);
+      }
+    };
+  
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+  
+    // Clean up event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []); 
+
   // Handler functions
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -149,31 +174,36 @@ function SellerDashboardPages() {
       {/* Filter & Search section */}
       <div className="flex justify-between mx-6 my-3">
         {/* Status Filter Dropdown */}
-        <div className="relative inline-block text-left">
-          <div
-            className="text-[#012939] flex items-center gap-1 bg-[#F6F8FA] p-2 rounded cursor-pointer"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <p>Active orders</p>
-            <IoIosArrowForward className={`transition-transform ${isOpen ? "rotate-90" : ""}`} />
-          </div>
-  
-          {/* Dropdown options */}
-          {isOpen && (
-            <div className="absolute mt-2 w-40 text-[#012939] bg-white shadow-md rounded p-2 z-10 space-y-2">
-              {["Cancel request", "Delivered", "Late", "Cancelled", "In-Progress", ""].map((status, index) => (
-                <p
-                  key={index}
-                  onClick={() => setStatusFilter(status)}
-                  className="hover:bg-gray-100 p-1 rounded cursor-pointer flex items-center gap-1"
-                >
-                  {status === "" ? "All Orders" : status}
-                  <IoIosArrowForward />
-                </p>
-              ))}
-            </div>
-          )}
+       
+
+<div className="relative inline-block text-left" ref={dropdownRef}>
+      <div
+        className="text-[#012939] flex items-center gap-1 bg-[#F6F8FA] p-2 rounded cursor-pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <p>Active orders</p>
+        <IoIosArrowForward className={`transition-transform ${isOpen ? "rotate-90" : ""}`} />
+      </div>
+
+      {/* Dropdown options */}
+      {isOpen && (
+        <div className="absolute mt-2 w-40 text-[#012939] bg-white shadow-md rounded p-2 z-10 space-y-2">
+          {["Cancel request", "Delivered", "Late", "Cancelled", "In-Progress", ""].map((status, index) => (
+            <p
+              key={index}
+              onClick={() => {
+                setStatusFilter(status);
+                setIsOpen(false); // Close dropdown after selecting an option
+              }}
+              className="hover:bg-gray-100 p-1 rounded cursor-pointer flex items-center gap-1"
+            >
+              {status === "" ? "All Orders" : status}
+              <IoIosArrowForward />
+            </p>
+          ))}
         </div>
+      )}
+    </div>
   
         {/* Search Field */}
         <div className="flex items-center">
@@ -396,7 +426,7 @@ function SellerDashboardPages() {
   
                   {/* Dropdown Options for Actions */}
                   {openDropdownAction === order.order_id && (
-                    <div className="absolute right-0 w-[195px] text-[16px] text-[#012939] bg-[#FAFDFF] border border-gray-200 rounded shadow-md z-20 p-2 space-y-2">
+                    <div  ref={actionDropdownRef}  className="absolute right-0 w-[195px] text-[16px] text-[#012939] bg-[#FAFDFF] border border-gray-200 rounded shadow-md z-20 p-2 space-y-2" >
                       {(() => {
                         const status = order.status ? order.status.toLowerCase().replace(/[-_\s]/g, '') : '';
                         if (["inprogress", "late"].includes(status)) {

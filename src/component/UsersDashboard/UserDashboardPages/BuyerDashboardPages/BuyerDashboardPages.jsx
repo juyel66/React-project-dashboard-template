@@ -2,7 +2,7 @@
 
 
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiDeliveryTruck, CiDollar } from "react-icons/ci";
 import { GoArrowLeft, GoProjectRoadmap } from "react-icons/go";
 import { IoIosArrowForward, IoIosSearch } from "react-icons/io";
@@ -116,10 +116,36 @@ function BuyerDashboardPages() {
   const [modalContent, setModalContent] = useState("");
   // Text see more button
   const [showFullText, setShowFullText] = useState(false);
+  const navigate = useNavigate()
+  const dropdownRef = useRef(null); // For status filter dropdown
+  const actionDropdownRef = useRef(null); // For action dropdown
 
   // Store all text in a single variable
   const description = `Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the Lorem Ipsum is simply dum my text of the printing and type setting industry. Lorem standard dummy text ever since the. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`;
-  const navigate = useNavigate()
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if click is outside the status filter dropdown
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+  
+      // Check if click is outside the action dropdown
+      if (actionDropdownRef.current && !actionDropdownRef.current.contains(event.target)) {
+        setOpenDropdownAction(null);
+      }
+    };
+  
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+  
+    // Clean up event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []); 
+
   // Search bar change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -162,7 +188,7 @@ function BuyerDashboardPages() {
       {/* Filter & Search section */}
       <div className="flex justify-between mx-6 my-3">
         {/* Status Filter Dropdown */}
-        <div className="relative inline-block text-left">
+        <div className="relative inline-block text-left" ref={dropdownRef}>
           <div
             className="text-[#012939] flex items-center gap-1 bg-[#F6F8FA] p-2 rounded cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
@@ -425,7 +451,7 @@ function BuyerDashboardPages() {
                     {order.action}
                   </div>
                   {openDropdownAction === order.order_id && (
-                    <div className="absolute right-0 w-[195px] text-[16px] text-[#012939] bg-[#FAFDFF] border border-gray-200 rounded shadow-md z-20 p-2 space-y-2">
+                    <div ref={actionDropdownRef}  className="absolute right-0 w-[195px] text-[16px] text-[#012939] bg-[#FAFDFF] border border-gray-200 rounded shadow-md z-20 p-2 space-y-2">
                       {(() => {
                         const status = order.status ? order.status.toLowerCase().replace(/[-_\s]/g, '') : '';
                         if (["inprogress", "late"].includes(status)) {
