@@ -16,24 +16,15 @@ import AdminDashboardMessage from './component/AdminDashboard/AdminDashboardPage
 import AdminDashboardChats from './component/AdminDashboard/AdminDashboardPages/AdminDashboardChats.jsx';
 import AdminDashboardAiChat from './component/AdminDashboard/AdminDashboardPages/AdminDashboardAiChat.jsx';
 import AdminDashboardNotification from './component/AdminDashboard/AdminDashboardPages/AdminDashboardNotification.jsx';
-import OrderManagement from './component/UsersDashboard/UserDashboardPages/OrderManagement.jsx';
-import UserSupport from './component/UsersDashboard/UserDashboardPages/UserSupport/UserSupport.jsx';
 
-import BuyerDashboardPages from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/BuyerDashboardPages.jsx';
-import CreateOrder from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/CreateOrder.jsx';
-import CreatedOrderedTable from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/CreatedOrderedTable.jsx';
-import BuyerCandidateList from './component/UsersDashboard/UserDashboardPages/BuyerDashboardPages/BuyerCandidateList.jsx';
-import UserProfileDettails from './component/UsersDashboard/UserDashboardPages/UserProfileDettails/UserProfileDettails.jsx';
-// import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet/UserWallet.jsx';
-import UserWallet from './component/UsersDashboard/UserDashboardPages/UserWallet/UserWallet.jsx';
-import UserWithdrawalMethod from './component/UsersDashboard/UserDashboardPages/UserWithdrawalMethod/UserWithdrawalMethod.jsx';
-import UserNotifications from './component/UsersDashboard/UserDashboardPages/UserNotifications/UserNotifications.jsx';
 import Registration from './component/Shared/Registration/Registration.jsx';
 import Login from './component/Shared/Login/Login.jsx';
 import ConfirmEmail from './component/Shared/ConfirmEmail/ConfirmEmail.jsx';
 import Verification from './component/Shared/Verification/Verification.jsx';
 import ConfirmPassword from './component/Shared/ConfirmPassword/ConfirmPassword.jsx';
 import PasswordChangeSuccesfully from './component/Shared/PasswordChangeSuccesfully/PasswordChangeSuccesfully.jsx';
+
+import OrderManagement from './component/UsersDashboard/UserDashboardPages/OrderManagement/OrderManagement.jsx';
 
 
 const router = createBrowserRouter([
@@ -57,43 +48,8 @@ const router = createBrowserRouter([
         index: true,
         element: <OrderManagement />
       },
-      {
-        path:"userSupport",
-        element:<UserSupport></UserSupport>
-      },
-      {
-        path:"sellerDashboardPages",
-        element:<BuyerDashboardPages></BuyerDashboardPages>
-      },
-      {
-        path:"createBuyerOrder",
-        element:<CreateOrder></CreateOrder>
-      },
      
-      {
-        path:"buyer_order_create",
-        element:<CreatedOrderedTable/>
-      },
-      {
-        path:"buyer_candidate_list",
-        element:<BuyerCandidateList/>
-      },
-      {
-        path:"user_profile_dettails",
-        element:<UserProfileDettails/>
-      },
-      {
-        path:"user_wallet",
-        element:<UserWallet/>
-      },
-      {
-        path:"user_withdrawal_method",
-        element:<UserWithdrawalMethod/>
-      },
-      {
-        path:"user_notifications",
-        element:<UserNotifications/>
-      }
+      
      
     ]
   },

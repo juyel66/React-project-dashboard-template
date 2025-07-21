@@ -9,6 +9,7 @@ import { BiSupport } from "react-icons/bi";
 const UserDashboardSidebar = () => {
   const location = useLocation();
   const isProjectActive = location.pathname.startsWith('/dashboard/user_notifications');
+  const isDashboardActive = ["/dashboard", "/dashboard/buyer_order_create", "/dashboard/createBuyerOrder", "/dashboard/buyer_candidate_list"].includes(location.pathname);
   
   
 
@@ -19,14 +20,13 @@ const UserDashboardSidebar = () => {
         <h1 className="text-[16px] text-gray-400">Ui/Ux</h1>
       </NavLink>
       <div className="flex flex-col gap-2 pt-10 mx-10">
-        <NavLink
+      <NavLink
           to="/dashboard"
-          end
-          className={({ isActive }) =>
-            `flex items-center gap-3 px-6 py-3 transition-colors duration-200 ${
-              isActive ? 'bg-[#0D95DD] text-white rounded-md' : 'hover:bg-[#0daddd] hover:text-white rounded-md'
-            }`
-          }
+
+          className={`flex items-center gap-3 px-6 py-3 transition-colors duration-200 ${
+            isDashboardActive ? 'bg-[#0D95DD] text-white rounded-md' : 'hover:bg-[#0daddd] hover:text-white rounded-md'
+          }`}
+          
         >
           <MdOutlineDashboard className="h-6 w-6" />
           <h1 className="text-lg font-medium">Dashboard</h1>

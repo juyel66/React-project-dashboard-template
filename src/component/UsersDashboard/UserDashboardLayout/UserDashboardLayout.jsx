@@ -14,6 +14,7 @@ const UserDashboardLayout = () => {
       </div>
 
       {/* Main Content Area */}
+
       <div className="flex flex-col ml-[350px] w-[calc(100%-350px)]">
         {/* Navbar - Full width and above sidebar */}
         <div
