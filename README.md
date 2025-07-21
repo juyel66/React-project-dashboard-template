@@ -29,13 +29,27 @@ Follow these steps to run this project on your local machine:
 
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
+
+```bash
 cd your-repo-name
+
+```bash
 rm -rf node_modules
+
+```bash
 rm package-lock.json
+
+```bash
 npm install
+
+```bash
 npm run dev
+
+```bash
 npm run build
+
+```bash
 npm run preview
 
 
-### Let me know if you'd like me to insert your name, email, or GitHub URL automatically.
+## Let me know if you'd like me to insert your name, email, or GitHub URL automatically.
